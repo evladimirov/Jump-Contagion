@@ -1,6 +1,6 @@
 clc; clear;
 % Load simulated data
-load('share\data\sim.mat')
+load('data\sim.mat')
 
 %% 
 % Box-constraint optimization
