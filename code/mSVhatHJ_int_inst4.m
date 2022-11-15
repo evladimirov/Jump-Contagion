@@ -1,0 +1,97 @@
+function [out1, out2, out3, out4] = mSVhatHJ_int_inst4(s, WTS, mY, mLatIntens, mVspot, dt, mParam, c)
+%     Integrand of the criterion function for the 1st step C-GMM for 2SVhatHJ model
+% 
+%     Inputs:
+%         s           4xP matrix of stacked arguments
+%         WTS         1xP matrix of quadrature weights
+%         mY          Nx2 matrix of log prices
+%         mLatIntens  Nx2 matrix of intensities
+%         mVspot      Nx2 matrix of spot volatility estimates
+%         dt          time discretisation
+%         mParam      matrix of the parameters
+%         c           double, scaling factor
+%
+%     Output:
+%         out         double, integrand value for given vector of parameters
+%
+%   author: Evgenii Vladimirov
+%   date:   30.03.2019 
+%%
+    [muj_q1, sigmaj1, kl1, lbar1, delta1, mut_delta1, muj1, eta1] = deal(mParam(1,1),mParam(1,2),mParam(1,3), mParam(1,4), mParam(1,5), mParam(1,6), mParam(1,7), mParam(1,8));
+    [muj_q2, sigmaj2, kl2, lbar2, delta2, mut_delta2, muj2, eta2] = deal(mParam(2,1),mParam(2,2),mParam(2,3), mParam(2,4), mParam(2,5), mParam(2,6), mParam(2,7), mParam(2,8));
+    
+    %Define CCF system matrices
+
+    K0 = [ 0;
+           0;
+         kl1*lbar1;
+         kl2*lbar2];
+    K1 = [ 0,    0,   -c*(exp(muj_q1 + 0.5*sigmaj1^2)-1),   0;
+           0,    0,       0,                             -c*(exp(muj_q2 + 0.5*sigmaj2^2)-1);
+           0,    0,      -kl1,                            0;
+           0,    0,       0,                             -kl2];
+
+    H0 = zeros(4,4);
+    H1 = zeros(4,4,4);
+
+    L0 = [0, 0];
+    L1 = [0, 0;
+          0, 0;
+          1, 0;
+          0, 1];
+     
+    JT = @(vBeta)([exp(muj1*vBeta(1)*c +0.5*c^2*sigmaj1^2*vBeta(1)^2 +vBeta(3)*delta1 + vBeta(4)*mut_delta2)-1; 
+                   exp(muj2*vBeta(2)*c +0.5*c^2*sigmaj2^2*vBeta(2)^2 +vBeta(3)*mut_delta1 + vBeta(4)*delta2)-1]);
+
+    iP = size(s,2);
+    mSolODE_set1 = zeros(5,iP);
+    mSolODE_set2 = zeros(5,iP);
+    mSolODE_set3 = zeros(5,iP);
+    mSolODE_set4 = zeros(5,iP);
+    ss1 = [s(1,:);zeros(1,iP);s(2,:);zeros(1,iP)];
+    ss2 = [zeros(1,iP);s(1,:);zeros(1,iP);s(2,:)];
+    ss3 = [s(1,:);zeros(2,iP);s(2,:)];
+    ss4 = [zeros(1,iP);s;zeros(1,iP)];
+    parfor j =1:iP
+        mSolODE_set1(:,j) = permute(affineODE(ss1(:,j), dt, K0, K1, H0, H1, L0, L1, JT),[1,3,2]);
+        mSolODE_set2(:,j) = permute(affineODE(ss2(:,j), dt, K0, K1, H0, H1, L0, L1, JT),[1,3,2]);
+        mSolODE_set3(:,j) = permute(affineODE(ss3(:,j), dt, K0, K1, H0, H1, L0, L1, JT),[1,3,2]);
+        mSolODE_set4(:,j) = permute(affineODE(ss4(:,j), dt, K0, K1, H0, H1, L0, L1, JT),[1,3,2]);
+    end
+    
+    mCF1 = exp((mVspot(1:end-1,1)*((eta1-0.5)*1i*ss1(1,:)*c - 0.5*ss1(1,:).^2*c^2))*dt...
+        + mSolODE_set1(1,:) + mLatIntens(1:end-1,1)*mSolODE_set1(4,:) + mLatIntens(1:end-1,2)*mSolODE_set1(5,:));
+    mCF2 = exp((mVspot(1:end-1,2)*((eta2-0.5)*1i*ss2(2,:)*c - 0.5*ss2(2,:).^2*c^2))*dt...
+        + mSolODE_set2(1,:) + mLatIntens(1:end-1,1)*mSolODE_set2(4,:) + mLatIntens(1:end-1,2)*mSolODE_set2(5,:));
+    
+    mCF3 = exp((mVspot(1:end-1,1)*((eta1-0.5)*1i*ss1(1,:)*c - 0.5*ss1(1,:).^2*c^2))*dt...
+        + mSolODE_set3(1,:) + mLatIntens(1:end-1,1)*mSolODE_set3(4,:) + mLatIntens(1:end-1,2)*mSolODE_set3(5,:));
+    mCF4 = exp((mVspot(1:end-1,2)*((eta2-0.5)*1i*ss2(2,:)*c - 0.5*ss2(2,:).^2*c^2))*dt...
+        + mSolODE_set4(1,:) + mLatIntens(1:end-1,1)*mSolODE_set4(4,:) + mLatIntens(1:end-1,2)*mSolODE_set4(5,:));
+    
+    mH1 = exp(1i.*[c*diff(mY(:,1)), mLatIntens(2:end,1)]*s) - mCF1;
+    mH2 = exp(1i.*[c*diff(mY(:,2)), mLatIntens(2:end,2)]*s) - mCF2;
+    mH3 = exp(1i.*[c*diff(mY(:,1)), mLatIntens(2:end,2)]*s) - mCF3;
+    mH4 = exp(1i.*[c*diff(mY(:,2)), mLatIntens(2:end,1)]*s) - mCF4;
+    
+
+    int1 = zeros(iP,1);
+    int2 = zeros(iP,1);
+    int3 = zeros(iP,1);
+    int4 = zeros(iP,1);
+    parfor j = 1:iP
+       HH1 = mean(exp(1i.*[c*diff(mY(1:end-1,1)), mLatIntens(2:end-1,1)]*s(:,j)).*mH1(2:end,:),1); 
+       HH2 = mean(exp(1i.*[c*diff(mY(1:end-1,2)), mLatIntens(2:end-1,2)]*s(:,j)).*mH2(2:end,:),1); 
+       HH3 = mean(exp(1i.*[c*diff(mY(1:end-1,1)), mLatIntens(2:end-1,2)]*s(:,j)).*mH3(2:end,:),1); 
+       HH4 = mean(exp(1i.*[c*diff(mY(1:end-1,2)), mLatIntens(2:end-1,1)]*s(:,j)).*mH4(2:end,:),1); 
+       int1(j) = real(HH1*(HH1'.*WTS));
+       int2(j) = real(HH2*(HH2'.*WTS));
+       int3(j) = real(HH3*(HH3'.*WTS));
+       int4(j) = real(HH4*(HH4'.*WTS));
+    end
+    out1 = transpose(int1)*WTS;
+    out2 = transpose(int2)*WTS;
+    out3 = transpose(int3)*WTS;
+    out4 = transpose(int4)*WTS;
+    
+end
