@@ -4,7 +4,7 @@ This repository illustrates and provides code for the estimation procedure devel
 
 # Simulated data
 
-The illustration is based on simulated data from the bivariate option pricing models proposed in the paper. The simulated data are stored as MATLAB .mat file in `data`. The state vectors are simulated using an Euler discretization and the option prices are computed using the COS method. For further details concerning the simulations, see Section 3 of the paper. 
+The illustration is based on simulated data from the bivariate option pricing models proposed in the paper. The simulated data are stored as MATLAB .mat file in `data`. The state vectors (stored in variables mY, mV and mLambda) are simulated using an Euler discretization and the option prices (variables mOptPriceIV1 and mOptPriceIV2) are computed using the COS method. For further details concerning the simulations, see Section 3 of the paper and Appendix B.3 of Online Appendix. 
 
 # Code
 
