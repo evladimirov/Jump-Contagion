@@ -8,8 +8,6 @@ The illustration is based on simulated data from the bivariate option pricing mo
 
 # Code
 
-The code is written in `MATLAB` version R2019b. The `main.m` file:
-* reads the simulated options data
-* estimates the model parameters based on the partial-infromation C-GMM
+The code is written in `MATLAB` version R2019b. The `main.m` file reads the simulated options data and estimates the model parameters based on the partial-infromation C-GMM. The estimation minimizes the criterion function ‘mSVhatHJ_crit_inst4.m’, which in turn involves the implied state procedure (function ‘mSVhatHJ_ImpIntens’) and four numerical integrations of criterion functions based on the marginal states (function ‘mSVhatHJ_int_inst4’). 
 
 The simulation and estimation procedures are described in Section 3 of the paper. 
