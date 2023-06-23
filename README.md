@@ -1,6 +1,6 @@
 # Jump-Contagion
  
-This repository illustrates and provides code for the estimation procedure developed in the paper **Jump Contagion among Stock Market Indices: Evidence from Option Markets** written by Peter Boswijk, Roger Laeven, Andrei Lalu and Evgenii Vladimirov. The paper is available on [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3929515).
+This repository illustrates and provides code for the estimation procedure developed in the paper **Jump Contagion among Stock Market Indices: Evidence from Option Markets** written by Peter Boswijk, Roger Laeven, Andrei Lalu and Evgenii Vladimirov. The latest version of the paper is available via this [link](https://www.evladimirov.com/files/BLLV_JumpContagion.pdf).
 
 # Simulated data
 
