@@ -17,7 +17,7 @@ function [out] = mSVhatHJ_crit_inst4(theta, PTS, WTS, mY, mOptPrice1, mOptPrice2
 %         c             double, scaling factor
 %
 %     Output:
-%         Integrand   double, integrand value for given vector of parameters
+%         out           double, value of objective function
 %
 %   author: Evgenii Vladimirov
 %   date:   25.04.2019 
