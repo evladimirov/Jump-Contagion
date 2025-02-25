@@ -1,8 +1,8 @@
  clc; clear;
 % Load simulated data
-load('data\sim.mat')
+load('data/sim.mat')
 
-%% Estimation
+%% Estimation. Bivariate model
 
 % Box-constraint optimization
 ub  =   repmat([ -0.05,  0.09, 40,     5,   30,   30,   -0.01,   8], 1,2);
@@ -17,10 +17,10 @@ crit = @(theta)(mSVhatHJ_crit_inst4(theta,...
 
 % Non-linear constraint
 constr= @(theta)(mSVhatHJ_fmin_constr(theta));
-optSearch = optimset('Display','iter', 'PlotFcns', @optimplotfval)
+optSearch = optimset('Display','iter', 'PlotFcns', @optimplotfval);
 
 % Optimization
-[vTheta1, fval] = fminsearchcon(crit,vStart,lb,ub,[],[],constr,optSearch);
+[vTheta, fval] = fminsearchcon(crit,vStart,lb,ub,[],[],constr,optSearch);
 
 mTheta = [vTheta(1:end/2); vTheta(end/2+1:end)];
 disp('Estimated parameters:')
@@ -36,6 +36,7 @@ disp('Standard errors:')
 disp(mStd)
 
 %% Figure of jump intensities
+
 mIntens = mSVhatHJ_ImpIntens(mOptPriceIV1, mOptPriceIV2, mY, mV, mK1, mK2, vTau, r, mTheta);
 
 subplot(2,1,1); plot(mIntens(:,1));
@@ -45,6 +46,7 @@ title("Implied intensity - stock 2")
 
 
 %% Option prices: fit given simulated data
+
 mParam = [vParam(1:end/2); vParam(end/2+1:end)];
 vM = [0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1];
 
@@ -63,6 +65,23 @@ disp('          Table: Option prices: fit using simulated data)')
 disp(' ')
 disp(tab_options)
 
+%% Univariate results given simulated data
+
+ub1 = [ -0.05,  0.09, 40,     5,     30,    -0.01,   8];
+lb1 = [ -0.25, 0.005,  1,   0.05, 0.005,    -0.1,  1.5];
+
+A1  =   [ 0,    0,     -1,      0,     1,     0   , 0  ];
+b1   =   -eps;
+optSearch = optimset('Display','iter', 'PlotFcns',@optimplotfval);
+
+% no scaling with backing-out only intensities
+crit_univ1 = @(theta)(SVhatHJ_crit_inst(theta, PTS, WTS', mY(:,1), mOptPriceIV1, mV(:,1), mK1, vTau, dt, r, 50));
+
+[vTheta1_univ,fval1_univ] = fminsearchcon(crit_univ1, vStart([1:5,7:8]),lb1,ub1,A1,b1,[],optSearch);
+
+disp('Estimated parameters for univariate model:')
+disp(vTheta1_univ)
+
 %% Replicate results from the paper given the empirical estimates
 
 % Table 6
@@ -78,6 +97,6 @@ MCTableRes = mSVhatHJ_monte_carlo();
 
 
 %%
-save('data\sim.mat')
+save('data/sim.mat')
 
 
