@@ -8,6 +8,11 @@ The illustration is based on simulated data from the bivariate option pricing mo
 
 # Code
 
-The code is written in `MATLAB` version R2018b. The `main.m` file reads the simulated options data and estimates the parameters of the bivariate model proposed in the paper based on the partial-information C-GMM procedure. The estimation procedure minimizes the criterion function ‘./code/mSVhatHJ_crit_inst4.m’, which in turn involves the implied state procedure (function ‘./code/mSVhatHJ_ImpIntens.m’) and four numerical integrations of criterion functions based on the marginal states (function ‘./code/mSVhatHJ_int_inst4.m’). Given the estimated parameters, the standard errors are calculated using the function ‘./code/mSVhatHJ_std4.m’. The estimated parameters and the figure with implied intensities are displayed as the result of the optimization. The estimation results and the figure are provided in the accompanying [pdf file](https://github.com/evladimirov/Jump-Contagion/blob/main/replication_results.pdf) for reproducibility.
+The code is written in `MATLAB` version R2018b. The `main.m` file reads the simulated options data and estimates the parameters of the bivariate model proposed in the paper based on the partial-information C-GMM procedure. The estimation procedure minimizes the criterion function ‘./code/mSVhatHJ_crit_inst4.m’, which in turn involves the implied state procedure (function ‘./code/mSVhatHJ_ImpIntens.m’) and four numerical integrations of criterion functions based on the marginal states (function ‘./code/mSVhatHJ_int_inst4.m’). Given the estimated parameters, the standard errors are calculated using the function ‘./code/mSVhatHJ_std4.m’. The estimated parameters and the figure with implied intensities are displayed as the result of the optimization. 
+
+# Output
+
+We summarize all the replication results, including Table 3 (bivariate parameter estimates), Figure 2 (implied intensities), Table 4 (option pricing fit), Table 5 (univariate parameter estimates), Table 6 (descriptive statistics log-return distribution), Figure 3 (contour plots), Table 2 (Monte Carlo simulation results - summary) and Table C.1 (Monte Carlo simulation results - full details) from the paper, in an accompanying [pdf file](https://github.com/evladimirov/Jump-Contagion/blob/main/replication_results.pdf). 
+
 
 The simulation and estimation procedures are described in Section 4 of the paper. 
