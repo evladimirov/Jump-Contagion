@@ -1,6 +1,8 @@
 function [vIntens] = SVhatHJ_ImpIntens(mOptPrice, vY, vVspot, mK, tau, r, vParam)
 %   Imply latent intensities for SVhatHJ model using option panel and spot volatility
 %   
+%  Used to produce Table R.3 in the replication pdf (analogous to Table 5 in the main text)
+%
 %     Inputs:
 %         mOptPrice   iNxiK matrix, observed option prices in BSIV terms
 %         vY          iNx1 vector of current log stock prices

@@ -1,6 +1,8 @@
 function [out] = SVhatHJ_int_inst(s, WTS, mX, vVspot, dt, vParam,  c)
 %     Integrand of the criterion function for the 1st step C-GMM for SVhatHJ model
 % 
+%  Used to produce Table R.3 in the replication pdf (analogous to Table 5 in the main text)
+%
 %     Inputs:
 %         s         2xP matrix of stacked arguments
 %         mX        Nx2 matrix of states, i.e. stacked state vectors

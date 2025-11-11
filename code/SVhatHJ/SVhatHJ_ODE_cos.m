@@ -2,6 +2,8 @@ function [mSolODE] = SVhatHJ_ODE_cos(T, r, vParam)
 %  ODE solver for modified SVhatHJ model for all arguments from Fang-Oosterlee COS option pricing
 %  CCF matrices are modified s.t. alpha has to be adjusted for full solution
 %
+%  Used to produce Table R.3 in the replication pdf (analogous to Table 5 in the main text)
+%
 %       Inputs:
 %           T       column-vector, time-to-maturity, in YEARs
 %           r       double, risk-free rate
@@ -9,7 +11,7 @@ function [mSolODE] = SVhatHJ_ODE_cos(T, r, vParam)
 %                      muj_q, sigmaj, kappa_l, lbar, delta
 %       Return:
 %           mSol    Nx4 matrix, solutions of ODE for SVhatHJ model for all
-%                   vKu arguments from Carr-Madan
+%                   arguments from the COS method
 %
 %   author: Evgenii Vladimirov
 %   date:   29.03.2019

@@ -1,6 +1,8 @@
 function [out] = SVhatHJ_crit_inst(theta, PTS, WTS, vY, mOptPrice, vVspot, mK, tau, dt, r, c)
 %  Criterion function for C-GMM for SVhatHJ model with check for constraint  
 % 
+%  Used to produce Table R.3 in the replication pdf (analogous to Table 5 in the main text)
+%
 %     Inputs:
 %         theta     vector of parameters
 %         PTS       2xP matrix of stacked arguments

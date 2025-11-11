@@ -1,6 +1,8 @@
 function [mCF] = SVhatHJ_ccf2(s, mX, vVspot, dt, vParam, c)
-%     CCF for SVhatHJ model
+%   CCF for SVhatHJ model
 % 
+%   Used to produce Table R.3 in the replication pdf (analogous to Table 5 in the main text)
+%
 %     Inputs:
 %         s         2xP matrix of stacked arguments
 %         mX        Nx2 matrix of states, i.e. stacked state vectors
