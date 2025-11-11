@@ -2,7 +2,9 @@
 % Load simulated data
 load('data/sim.mat')
 
-%% Estimation. Bivariate model
+%% Estimation. Bivariate model using simulated data
+% Code below produces outputs for Table R.1 in the replication pdf, which 
+% is analogous to Table 3 in the paper
 
 % Box-constraint optimization
 ub  =   repmat([ -0.05,  0.09, 40,     5,   30,   30,   -0.01,   8], 1,2);
@@ -21,21 +23,25 @@ optSearch = optimset('Display','iter', 'PlotFcns', @optimplotfval);
 
 % Optimization
 [vTheta, fval] = fminsearchcon(crit,vStart,lb,ub,[],[],constr,optSearch);
-
 mTheta = [vTheta(1:end/2); vTheta(end/2+1:end)];
+
+% Display estimated parameters (Table R.1 in the replication pdf)
 disp('Estimated parameters:')
 disp(mTheta)
 
-% Standard Errors
+% Calculate Standard Errors
 [mA, mB] = mSVhatHJ_std4(vTheta, PTS4, WTS4, mY, mOptPriceIV1, mOptPriceIV2,...
         mV, mK1, mK2, vTau, dt, r, 50);
 vStd = real(sqrt(diag(pinv(mA)*mB*pinv(mA)/iN)))';
-
 mStd = [vStd(1:end/2); vStd(end/2+1:end)];
+
+% Display standard errors (Table R.1 in the replication pdf)
 disp('Standard errors:')
 disp(mStd)
 
 %% Figure of jump intensities
+% Code below generates Figure R.1 in the replication pdf, which is
+% analogous to Figure 2 in the paper
 
 mIntens = mSVhatHJ_ImpIntens(mOptPriceIV1, mOptPriceIV2, mY, mV, mK1, mK2, vTau, r, mTheta);
 
@@ -46,6 +52,8 @@ title("Implied intensity - stock 2")
 
 
 %% Option prices: fit given simulated data
+% Code below produces Table R.2 of the replication pdf, which is analogous
+% to Table 4 in the main text
 
 mParam = [vParam(1:end/2); vParam(end/2+1:end)];
 vM = [0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1];
@@ -60,12 +68,15 @@ VarNames = matlab.lang.makeValidName(VarNames);
 tab_options = array2table(round([rmse1; rmse2],2),'RowNames',{'stock-1','stock-2'},...
         'VariableNames',VarNames);
 
+% Display Table R.2 of the replication pdf
 disp('---------------------------------------------------------------------------');
 disp('          Table: Option prices: fit using simulated data)')
 disp(' ')
 disp(tab_options)
 
 %% Univariate results given simulated data
+% Code below produces Table R.3 of the replication pdf, which is analogous
+% to Table 5 in the main text
 
 ub1 = [ -0.05,  0.09, 40,     5,     30,    -0.01,   8];
 lb1 = [ -0.25, 0.005,  1,   0.05, 0.005,    -0.1,  1.5];
