@@ -1,7 +1,9 @@
 function [MCTableRes] = mSVhatHJ_monte_carlo()
-
-
-    % Monte-Carlo simulation for bivariate 2SVhatHJ estimation procedure
+    %
+    %   Monte-Carlo simulation for bivariate 2SVhatHJ estimation procedure
+    %
+    %   Used to produce Table R.5 in the replication pdf (Table 2 and C.1 in the main text)
+    %
     
     %% DGP parameters
     r = 0.0;

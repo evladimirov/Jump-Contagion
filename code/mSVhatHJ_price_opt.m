@@ -1,6 +1,8 @@
 function [mOptPrice1, mOptPrice2] = mSVhatHJ_price_opt(mY, mV, mLambda, r, mParam, T, M, bBSIV)
 %  Price option panel from 2SVhatHJ model
 %
+%   Used to produce Table R.2 in the replication pdf (analogous to Table 4 in the main text)
+%
 %       Inputs:
 %           iN          integer, number of draws
 %           mY          iNx2 matrix of log stock prices

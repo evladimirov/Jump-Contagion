@@ -1,6 +1,8 @@
 function [mOptPrice1, mOptPrice2] = MSVHJ_sim_opt(iN, mY, mV, mLambda, r, mParam, T, M, bBSIV)
 %  Simulate option panel from 2SVHJ model
 %
+%  Used to produce Table R.5 in the replication pdf (Table 2 and Table C.1 in the main text)
+%
 %       Inputs:
 %           iN          integer, number of draws
 %           mY          iNx2 matrix of log stock prices

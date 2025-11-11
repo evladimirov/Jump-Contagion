@@ -1,6 +1,8 @@
 function [mY_hf, mY, mLambda, mCount] = mSVhatHJ_sim(iN, dt, iM, mX0, r, mParam, corr, v1, v2)
 %   Simulate state data from the 2SVhatHJ model with constant volatilities 
 %
+%   Used to produce Table R.4 and Figure R.2 in the replication pdf (Table 6 and Figure 3 in the main text)
+%
 %       Inputs:
 %           iN      integer, number of observations
 %           dt      double, time discretisation (dt = iT/iN) between two

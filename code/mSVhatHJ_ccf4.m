@@ -1,6 +1,9 @@
 function [mCF1, mCF2, mCF3, mCF4] = mSVhatHJ_ccf4(s, mLatIntens, mVspot, dt, mParam, c)
+%
 %     Integrand of the criterion function for the 1st step C-GMM for 2SVhatHJ model
 % 
+%     Used to produce Table R.1 in the replication pdf (analogous to Table 3 in the main text)
+%
 %     Inputs:
 %         s           4xP matrix of stacked arguments
 %         mY          Nx2 matrix of log prices

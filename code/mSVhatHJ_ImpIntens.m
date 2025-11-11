@@ -1,6 +1,9 @@
 function [mIntens] = mSVhatHJ_ImpIntens(mOptPrice1, mOptPrice2, mY, mVspot, mK1, mK2, tau, r, mParam)
 %   Imply jump intensities for 2SVhatHJ model 
 %
+%   Used to produce Table R.1, Table R.2, Table R.5, Figure R.1 in the replication pdf 
+%       (analogous to Table 3, Table 4, Table 2 and C.1, and Figure 2 in the main text)
+%
 %     Inputs:
 %         mOptPrice1  iNxiKxiT 3d matrix, observed option prices in BSIV
 %                                         terms for the 1st stock

@@ -2,6 +2,8 @@ function [vH1, vH2, vH3, vH4, mH1, mH2, mH3, mH4] = mSVhatHJ_mom4(theta, PTS, mY
 %
 %   Calculate values of the moment function for a given value of parameters
 %
+%   Used to produce Table R.1 in the replication pdf (analogous to Table 3 in the main text)
+%
 %     Inputs:
 %         theta     vector of parameters
 %         PTS       2xP matrix of stacked arguments

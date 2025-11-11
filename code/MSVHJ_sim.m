@@ -1,6 +1,8 @@
 function [mY_hf, mY, mV, mLambda, count] = MSVHJ_sim(iN, dt, iM, mX0, r, mParam, corr, bPQ)
 %   Simulate state data from the 2SVHJ 
 %
+%  Used to produce Table R.5 in the replication pdf (Table 2 and Table C.1 in the main text)
+%
 %       Inputs:
 %           iN      integer, number of observations
 %           dt      double, time discretisation (dt = iT/iN) between two

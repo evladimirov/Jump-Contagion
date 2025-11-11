@@ -1,6 +1,8 @@
 function [mSolODE] = MSVHJ_ODE_cos(T, r, mParam)
 %  ODE solver for 2SVHJ model for all arguments from COS option pricing
 % 
+%  Used to produce Table R.5 in the replication pdf (Table 2 and Table C.1 in the main text)
+%
 %       Inputs:
 %           T       double, time-to-maturity, in YEARs
 %           r       double, risk-free rate
@@ -8,7 +10,7 @@ function [mSolODE] = MSVHJ_ODE_cos(T, r, mParam)
 %
 %       Return:
 %           mSol    Nx4 matrix, solutions of ODE for SVHJ model for all
-%                   vKu arguments from Carr-Madan
+%                   arguments from the COS method
 %
 %   author: Evgenii Vladimirov
 %   date:   19.03.2019
