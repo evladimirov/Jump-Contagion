@@ -1,6 +1,9 @@
 function [mCF1, mCF2, mCF3, mCF4] = mSVhatHJ_ccf4(s, mLatIntens, mVspot, dt, mParam, c)
+%
 %     Integrand of the criterion function for the 1st step C-GMM for 2SVhatHJ model
 % 
+%     Used to produce Table R.1 in the replication pdf (analogous to Table 3 in the main text)
+%
 %     Inputs:
 %         s           4xP matrix of stacked arguments
 %         mY          Nx2 matrix of log prices
@@ -12,8 +15,7 @@ function [mCF1, mCF2, mCF3, mCF4] = mSVhatHJ_ccf4(s, mLatIntens, mVspot, dt, mPa
 %         Ft          NxN matrix of instruments
 %
 %     Output:
-%         out         double, integrand value for given vector of
-%                               parameters
+%         mCF1        matrix of characteristic functions for state 1
 %
 %   author: Evgenii Vladimirov
 %   date:   30.03.2019 
@@ -21,8 +23,8 @@ function [mCF1, mCF2, mCF3, mCF4] = mSVhatHJ_ccf4(s, mLatIntens, mVspot, dt, mPa
     [muj_q1, sigmaj1, kl1, lbar1, delta1, mut_delta1, muj1, eta1] = deal(mParam(1,1),mParam(1,2),mParam(1,3), mParam(1,4), mParam(1,5), mParam(1,6), mParam(1,7), mParam(1,8));
     [muj_q2, sigmaj2, kl2, lbar2, delta2, mut_delta2, muj2, eta2] = deal(mParam(2,1),mParam(2,2),mParam(2,3), mParam(2,4), mParam(2,5), mParam(2,6), mParam(2,7), mParam(2,8));
     
-    %Define CCF system matrices
-    %c=1;
+    % Solve ODEs 
+    % Define CCF system matrices
     K0 = [ 0;
            0;
          kl1*lbar1;
@@ -60,6 +62,7 @@ function [mCF1, mCF2, mCF3, mCF4] = mSVhatHJ_ccf4(s, mLatIntens, mVspot, dt, mPa
         mSolODE_set4(:,j) = permute(affineODE(ss4(:,j), dt, K0, K1, H0, H1, L0, L1, JT),[1,3,2]);
     end
     
+    % Calculate four Characteristic Functions
     mCF1 = exp((mVspot(1:end-1,1)*((eta1-0.5)*1i*ss1(1,:)*c - 0.5*ss1(1,:).^2*c^2))*dt...
         + mSolODE_set1(1,:) + mLatIntens(1:end-1,1)*mSolODE_set1(4,:) + mLatIntens(1:end-1,2)*mSolODE_set1(5,:));
     mCF2 = exp((mVspot(1:end-1,2)*((eta2-0.5)*1i*ss2(2,:)*c - 0.5*ss2(2,:).^2*c^2))*dt...
@@ -69,6 +72,5 @@ function [mCF1, mCF2, mCF3, mCF4] = mSVhatHJ_ccf4(s, mLatIntens, mVspot, dt, mPa
         + mSolODE_set3(1,:) + mLatIntens(1:end-1,1)*mSolODE_set3(4,:) + mLatIntens(1:end-1,2)*mSolODE_set3(5,:));
     mCF4 = exp((mVspot(1:end-1,2)*((eta2-0.5)*1i*ss2(2,:)*c - 0.5*ss2(2,:).^2*c^2))*dt...
         + mSolODE_set4(1,:) + mLatIntens(1:end-1,1)*mSolODE_set4(4,:) + mLatIntens(1:end-1,2)*mSolODE_set4(5,:));
-    
     
 end

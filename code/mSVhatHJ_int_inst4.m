@@ -1,6 +1,9 @@
 function [out1, out2, out3, out4] = mSVhatHJ_int_inst4(s, WTS, mY, mLatIntens, mVspot, dt, mParam, c)
 %     Integrand of the criterion function for the 1st step C-GMM for 2SVhatHJ model
 % 
+%     Used to produce Table R.1 and Table R.5 in the replication pdf 
+%       (analogous to Table 3 and Table 2 and C.1 in the main text)
+%
 %     Inputs:
 %         s           4xP matrix of stacked arguments
 %         WTS         1xP matrix of quadrature weights

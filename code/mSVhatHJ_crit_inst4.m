@@ -1,6 +1,9 @@
 function [out] = mSVhatHJ_crit_inst4(theta, PTS, WTS, mY, mOptPrice1, mOptPrice2, mVspot, mK1, mK2, tau, dt, r, c)
 %  Criterion function for C-GMM for 2SVhatHJ model with constraint  
 % 
+%     Used to produce Table R.1 and Table R.5 in the replication pdf 
+%       (analogous to Table 3 and Table 2 and C.1 in the main text)
+%
 %     Inputs:
 %         theta         vector of parameters
 %         PTS           2xP matrix of stacked arguments
@@ -17,7 +20,7 @@ function [out] = mSVhatHJ_crit_inst4(theta, PTS, WTS, mY, mOptPrice1, mOptPrice2
 %         c             double, scaling factor
 %
 %     Output:
-%         Integrand   double, integrand value for given vector of parameters
+%         out           double, value of objective function
 %
 %   author: Evgenii Vladimirov
 %   date:   25.04.2019 

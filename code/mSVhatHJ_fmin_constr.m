@@ -1,6 +1,9 @@
 function [c, ceq] = mSVhatHJ_fmin_constr(x)
 %   2SVhatHJ constraint check for fmincon
 %
+%     Used to produce Table R.1 and Table R.5 in the replication pdf 
+%       (analogous to Table 3 and Table 2 and C.1 in the main text)
+%
 %   Input:
 %       mParam  matrix of parameters
 %

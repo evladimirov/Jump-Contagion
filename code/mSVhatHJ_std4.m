@@ -1,6 +1,8 @@
 function [mA, mB] = mSVhatHJ_std4(theta, PTS, WTS, mY, mOptPrice1, mOptPrice2, mVspot, mK1, mK2, tau, dt, r, c)
 %  
-%   Std calculation routine for SVhatHJ
+%   Std calculation routine for mSVhatHJ
+%
+%   Used to produce Table R.1 in the replication pdf (analogous to Table 3 in the main text)
 %
 %     Inputs:
 %         theta     vector of parameters
