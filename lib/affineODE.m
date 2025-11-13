@@ -1,5 +1,5 @@
 function [sol] = affineODE(u, T, K0, K1, H0, H1, L0, L1, JT)
-% ODE solver for affine model following Duffie, Pan, Singelton (2002)
+% ODE solver for affine model following Duffie, Pan, Singleton (2002)
 % 
 %     Inputs:
 %         u       kx1 vector of arguments
